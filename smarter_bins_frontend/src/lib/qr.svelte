@@ -59,6 +59,8 @@
 <h3>Scanned QR Codes:</h3>
 <ul>
   {#each results as result}
-    <li>{result.text} ({result.format})</li>
+    <a href="https://{result.text}" target="_blank" rel="noopener noreferrer">
+      <li>{result.text} ({result.format})</li>
+    </a>
   {/each}
 </ul>
