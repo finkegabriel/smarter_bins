@@ -3,38 +3,33 @@
   import { BrowserMultiFormatReader } from '@zxing/browser';
 
   let videoElement;
-  let results = [];
+  let currentResult = null;  // Changed from results array to single result
   let error = '';
-
   let reader;
 
   const constraints = {
-  video: {
-    facingMode: { ideal: 'environment' }
-  }
-};
+    video: {
+      facingMode: { ideal: 'environment' }
+    }
+  };
 
   onMount(async () => {
     try {
       reader = new BrowserMultiFormatReader();
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      const frontCamera = devices.find(device =>
-        device.kind === 'videoinput' && device.label.toLowerCase().includes('front')
-      );
-
-
       const stream = await navigator.mediaDevices.getUserMedia(constraints);
       videoElement.srcObject = stream;
       await videoElement.play();
 
       reader.decodeFromVideoElement(videoElement, (result, err) => {
-        if (result && !results.find(r => r.text === result.getText())) {
-          results = [...results, { text: result.getText(), format: result.getBarcodeFormat() }];
+        if (result) {
+          currentResult = { 
+            text: result.getText(), 
+            format: result.getBarcodeFormat() 
+          };
         }
         
         if (err) {
           if (err.name !== 'NotFoundException') {
-            // console.error(err);
             return;
           }
         }
@@ -56,11 +51,10 @@
   <p style="color: red">{error}</p>
 {/if}
 
-<h3>Scanned QR Codes:</h3>
-<ul>
-  {#each results as result}
-    <a href="https://{result.text}" target="_blank" rel="noopener noreferrer">
-      <li>{result.text} ({result.format})</li>
+{#if currentResult}
+  <div>
+    <a href="https://{currentResult.text}" target="_blank" rel="noopener noreferrer">
+      {currentResult.text} ({currentResult.format})
     </a>
-  {/each}
-</ul>
+  </div>
+{/if}
