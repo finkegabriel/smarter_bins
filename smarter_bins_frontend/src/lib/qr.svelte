@@ -31,9 +31,11 @@
         if (result && !results.find(r => r.text === result.getText())) {
           results = [...results, { text: result.getText(), format: result.getBarcodeFormat() }];
         }
+        
         if (err) {
           if (err.name !== 'NotFoundException') {
-            console.error(err);
+            // console.error(err);
+            return;
           }
         }
       });
