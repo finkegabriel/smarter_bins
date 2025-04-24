@@ -1,29 +1,23 @@
 <script>
-  import QR from './lib/qr.svelte'
+// @ts-nocheck
+
   import { Router, Link, Route } from "svelte-routing";
   import Home from "./routes/Home.svelte";
+  import Search from "./routes/Search.svelte";
 
   export let url = "";
 </script>
 
 <Router {url}>
   <nav>
-    <Link to="/">Home</Link>
+    <Link to="/home">Home</Link>
     <Link to="/search">Search</Link>
   </nav>
   <div>
-    <!-- <Route path="/blog/:id" component={BlogPost} /> -->
-    <!-- <Route path="/blog" component={Blog} /> -->
-    <!-- <Route path="/about" component={About} /> -->
-    <Route path="/"><Home /></Route>
+    <Route path="/search" component={Search} />
+    <Route path="/home" component={Home} />
   </div>
 </Router>
-
-<main>
-  <div class="card">
-    <QR />
-  </div>
-</main>
 
 <style>
 
