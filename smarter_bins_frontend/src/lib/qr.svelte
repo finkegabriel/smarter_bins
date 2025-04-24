@@ -54,7 +54,7 @@
 {#if currentResult}
   <div>
     <a href="https://{currentResult.text}" target="_blank" rel="noopener noreferrer">
-      {currentResult.text} ({currentResult.format})
+      {currentResult.text}
     </a>
   </div>
 {/if}
