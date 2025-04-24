@@ -31,8 +31,10 @@
         if (result && !results.find(r => r.text === result.getText())) {
           results = [...results, { text: result.getText(), format: result.getBarcodeFormat() }];
         }
-        if (err && !(err instanceof ZXing.NotFoundException)) {
-          console.error(err);
+        if (err) {
+          if (err.name !== 'NotFoundException') {
+            console.error(err);
+          }
         }
       });
     } catch (e) {
@@ -55,11 +57,6 @@
 <h3>Scanned QR Codes:</h3>
 <ul>
   {#each results as result}
-    {results = results.concat({
-        text: result.getText(),
-        format: result.getBarcodeFormat()
-      })
-      }
     <li>{result.text} ({result.format})</li>
   {/each}
 </ul>
