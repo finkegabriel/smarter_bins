@@ -3,9 +3,8 @@
     import { onMount } from 'svelte';
   
     let videoElement: HTMLVideoElement;
-    let codes: string[] = [];
+    let currentCode: string | null = null;
     let scannerActive = true;
-  
     let codeReader: BrowserQRCodeReader;
   
     onMount(async () => {
@@ -27,66 +26,52 @@
         try {
           const result = await codeReader.decodeOnceFromVideoElement(videoElement);
           const text = result.getText();
-          if (!codes.includes(text)) {
-            codes = [...codes, text];
-          }
+          currentCode = text;
         } catch (error) {
           console.log('No QR code detected, retrying...');
-          // Wait a tiny bit before retrying
           await new Promise(resolve => setTimeout(resolve, 300));
         }
       }
     }
-  </script>
+</script>
   
-  <!-- svelte-ignore a11y_media_has_caption -->
-  <video bind:this={videoElement} autoplay playsinline style="width: 100%; height: auto;"></video>
+<video bind:this={videoElement} autoplay playsinline style="width: 100%; height: auto;"></video>
   
-  <h2>Detected QR Codes:</h2>
-  <ul>
-    {#each codes as code}
-        {console.log(code)}
-      <li>{code}</li>
-    {/each}
-  </ul>
-    <button on:click={() => scannerActive = !scannerActive}>
-        {scannerActive ? 'Stop Scanner' : 'Start Scanner'}
-    </button>
-    <style>
-        video {
-            border: 2px solid #000;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-        h2 {
-            color: #333;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            background: #f0f0f0;
-            margin: 0.5rem 0;
-            padding: 0.5rem;
-            border-radius: 4px;
-        }
-        button {
-            padding: 0.5rem 1rem;
-            background: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-        button:hover {
-            background: #0056b3;
-        }
-        button:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-        button:disabled:hover {
-            background: #ccc;
-        }
-    </style>
+{#if currentCode}
+  <div class="result">
+    <h2>Scanned QR Code:</h2>
+    <a href="https://{currentCode}" target="_blank" rel="noopener noreferrer">
+      <div class="code-display">{currentCode}</div>
+    </a>
+  </div>
+{/if}
+
+<style>
+    video {
+        border: 2px solid #000;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+    .result {
+        margin-top: 1rem;
+        text-align: center;
+    }
+    .code-display {
+        background: #f0f0f0;
+        padding: 1rem;
+        border-radius: 4px;
+        margin: 0.5rem 0;
+        transition: background-color 0.2s;
+    }
+    .code-display:hover {
+        background: #e0e0e0;
+    }
+    h2 {
+        color: #333;
+        margin-bottom: 0.5rem;
+    }
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+</style>
