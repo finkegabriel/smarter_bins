@@ -3,7 +3,6 @@
 </script>
 
 <div class="container">
-  <h1>Scan QR Code</h1>
   <div class="scanner-wrapper">
     <QR />
   </div>

@@ -45,7 +45,7 @@
   });
 </script>
 
-<video bind:this={videoElement} width="300" height="200" autoplay muted playsinline></video>
+<video bind:this={videoElement} width="100%" height="100%" autoplay muted playsinline></video>
 
 {#if error}
   <p style="color: red">{error}</p>
