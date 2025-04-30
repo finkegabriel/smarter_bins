@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" href="%sveltekit.assets%/favicon.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="color-scheme" content="dark light" />
+        %sveltekit.head%
+
+        <!-- Add a modern CSS framework -->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoYz1HBY5dZLl3z1qDhc5pBxJ40E8lPU5I1R8mW9cdK7wj"
+            crossorigin="anonymous"
+        />
+
+        <!-- Custom styles -->
+        <style>
+            body {
+                font-family: 'Arial', sans-serif;
+                background-color: #f8f9fa;
+                color: #212529;
+            }
+
+            .navbar {
+                background-color: #343a40;
+            }
+
+            .navbar-brand,
+            .nav-link {
+                color: #ffffff !important;
+            }
+
+            .container {
+                margin-top: 2rem;
+            }
+
+            .footer {
+                background-color: #343a40;
+                color: #ffffff;
+                padding: 1rem 0;
+                text-align: center;
+                margin-top: 2rem;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- Navigation bar -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="/">Inventory System</a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/search">Search</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/about">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main content -->
+        <div class="container">
+            %sveltekit.body%
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <!-- <p>&copy; 2025 Inventory System. All rights reserved.</p> -->
+        </footer>
+
+        <!-- Bootstrap JS -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-qQ2E5N5aZ9+9fXo1p6F4J9Fq4z5i5r5r5r5r5r5r5r5r5r5r5r5r5r5r5r5r5r5r5r5r5"
+            crossorigin="anonymous"
+        ></script>
+
+        <!-- Theme script -->
+        <script>
+            const theme = new URL(window.location).searchParams.get('theme');
+
+            document.documentElement.classList.remove('light', 'dark');
+            document.documentElement.classList.add(theme || 'light');
+        </script>
+    </body>
+</html>

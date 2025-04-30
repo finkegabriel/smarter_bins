@@ -3,7 +3,7 @@
 
   import { Router, Link, Route } from "svelte-routing";
   // import Home from "./routes/Home.svelte";
-  import Search from "./routes/Search.svelte";
+  import Search from "./routes/search/+page.svelte";
   
   export let url = "";
 </script>

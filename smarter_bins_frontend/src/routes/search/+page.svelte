@@ -1,5 +1,5 @@
 <script>
-  import QR from '../lib/qr.svelte';
+  import QR from '../../lib/qr.svelte';
 </script>
 
 <div class="container">
