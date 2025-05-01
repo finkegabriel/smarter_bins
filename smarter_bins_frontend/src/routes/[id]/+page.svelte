@@ -27,7 +27,11 @@
       {/each}
     </tbody>
   </table>
-  
+  <!-- <button on:click={}>Back</button> -->
+   <div>
+       <button>Take</button>
+       <button>Refill</button>
+   </div>
   <style>
     table {
       border-collapse: collapse;
