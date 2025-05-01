@@ -3,12 +3,12 @@
     // Example data
     let headers = ['id', 'part name', 'quantity'];
     let rows = [
-      [ $page.params.id, "photo resistor sensor", 'x4'],
-      [ $page.params.id, "arduino nano", 'x3'],
-      [ $page.params.id, "stepper motor driver", 'x10']
+      [ '1', "photo resistor sensor", 'x4'],
+      [ '2', "arduino nano", 'x3'],
+      [ '3', "stepper motor driver", 'x10']
     ];
   </script>
-  
+    <h1>Bin ID: {$page.params.id}</h1>
   <table>
     <thead>
       <tr>
