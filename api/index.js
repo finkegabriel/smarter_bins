@@ -1,7 +1,7 @@
 var restify = require('restify');
 
 const server = restify.createServer({
-  name: 'myapp',
+  name: 'smarter_bins',
   version: '1.0.0'
 });
 

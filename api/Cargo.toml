@@ -1,0 +1,12 @@
+[package]
+name = "api"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+image = "0.25.6"
+opencv = "0.94.4"
+rqrr = "0.9.3"
+
+[build-dependencies]
+pkg-config = "0.3.27"
