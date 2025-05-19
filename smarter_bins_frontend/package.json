@@ -15,9 +15,12 @@
   },
   "dependencies": {
     "@sveltejs/adapter-auto": "^6.0.0",
-    "@sveltejs/kit": "^2.20.7",
+    "@sveltejs/kit": "^2.21.0",
     "@zxing/browser": "^0.1.5",
     "@zxing/library": "^0.21.3",
-    "svelte-routing": "^2.13.0"
+    "svelte-routing": "^2.13.0",
+    "wasm-app": "^1.0.0",
+    "wasm-qr": "file:../public/pkg/api.js",
+    "www": "0.0.0"
   }
 }

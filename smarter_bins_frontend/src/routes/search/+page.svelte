@@ -1,5 +1,14 @@
 <script>
   import QR from '../../lib/qr.svelte';
+  import { onMount } from 'svelte';
+  import * as wasm from '../../pkg/api.js';
+
+  wasm.default().then(() => {
+    console.log('WASM module loaded');
+    wasm.greet();
+  }).catch(err => {
+    console.error('Error loading WASM module:', err);
+  });
 </script>
 
 <div class="container">

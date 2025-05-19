@@ -1,7 +1,7 @@
 <script lang="ts">
     import { BrowserQRCodeReader } from '@zxing/browser';
     import { onMount, onDestroy } from 'svelte';
-  
+    
     let videoElement: HTMLVideoElement;
     let currentCode: string | null = null;
     let scannerActive = true;
@@ -16,48 +16,48 @@
         }
     };
   
-    onMount(async () => {
-      try {
-        codeReader = new BrowserQRCodeReader();
-        const devices = await navigator.mediaDevices.enumerateDevices();
-        const cameras = devices.filter(device => device.kind === 'videoinput');
+    // onMount(async () => {
+    //   try {
+    //     codeReader = new BrowserQRCodeReader();
+    //     const devices = await navigator.mediaDevices.enumerateDevices();
+    //     const cameras = devices.filter(device => device.kind === 'videoinput');
         
-        if (cameras.length === 0) {
-          error = 'No cameras found';
-          return;
-        }
+    //     if (cameras.length === 0) {
+    //       error = 'No cameras found';
+    //       return;
+    //     }
 
-        const stream = await navigator.mediaDevices.getUserMedia(constraints);
-        videoElement.srcObject = stream;
-        await videoElement.play();
+    //     const stream = await navigator.mediaDevices.getUserMedia(constraints);
+    //     videoElement.srcObject = stream;
+    //     await videoElement.play();
   
-        scanLoop();
-      } catch (err) {
-        error = `Camera error: ${err.message}`;
-        console.error('Error accessing camera:', err);
-      }
-    });
+    //     scanLoop();
+    //   } catch (err) {
+    //     error = `Camera error: ${err.message}`;
+    //     console.error('Error accessing camera:', err);
+    //   }
+    // });
 
-    onDestroy(() => {
-      scannerActive = false;
-      if (videoElement?.srcObject) {
-        const tracks = videoElement.srcObject as MediaStream;
-        tracks.getTracks().forEach(track => track.stop());
-      }
-    });
+    // onDestroy(() => {
+    //   scannerActive = false;
+    //   if (videoElement?.srcObject) {
+    //     const tracks = videoElement.srcObject as MediaStream;
+    //     tracks.getTracks().forEach(track => track.stop());
+    //   }
+    // });
   
-    async function scanLoop() {
-      while (scannerActive) {
-        try {
-          const result = await codeReader.decodeOnceFromVideoElement(videoElement);
-          const text = result.getText();
-          currentCode = text;
-        } catch (error) {
-          console.log('No QR code detected, retrying...');
-          await new Promise(resolve => setTimeout(resolve, 300));
-        }
-      }
-    }
+    // async function scanLoop() {
+    //   while (scannerActive) {
+    //     try {
+    //       const result = await codeReader.decodeOnceFromVideoElement(videoElement);
+    //       const text = result.getText();
+    //       currentCode = text;
+    //     } catch (error) {
+    //       console.log('No QR code detected, retrying...');
+    //       await new Promise(resolve => setTimeout(resolve, 300));
+    //     }
+    //   }
+    // }
 </script>
 
 <div class="scanner-container">

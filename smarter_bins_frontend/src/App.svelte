@@ -2,15 +2,10 @@
 // @ts-nocheck
 
   import { Router, Link, Route } from "svelte-routing";
-<<<<<<< Updated upstream
-  // import Home from "./routes/Home.svelte";
-  import Search from "./routes/search/+page.svelte";
-=======
   import Home from "./routes/Home.svelte";
   import Search from "./routes/Search.svelte";
->>>>>>> Stashed changes
-  
   export let url = "";
+
 </script>
 
 <Router {url}>

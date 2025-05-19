@@ -2,3 +2,7 @@ api/node_modules/
 api/package-lock.json
 node_modules/
 package-lock.json
+smarter_bins_frontend/node_modules/
+smarter_bins_frontend/package-lock.json
+smarter_bins_frontend/.svelte-kit
+api/target/
