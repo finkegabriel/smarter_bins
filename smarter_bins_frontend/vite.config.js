@@ -7,7 +7,7 @@ export default defineConfig({
     exclude: ['<problematic-package-name>'],
   },
   server: {
-    allowedHosts: ['frontend.finkegabriel.com'],
+    allowedHosts: ['in.finkegabriel.com'],
     host: true // enables access from network devices
   }
 });

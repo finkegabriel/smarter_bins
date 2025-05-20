@@ -6,11 +6,13 @@
   let canvas;
   let scanning = false;
   let result = '';
-  let wasmModule;
+  let wasmInitialized = false;
   
   onMount(async () => {
     try {
-      // Initialize WASM
+      // Initialize WASM first
+      await init();
+      wasmInitialized = true;
       console.log('WASM module loaded');
 
       // Get camera access
@@ -34,7 +36,7 @@
       scanning = true;
       scanQRCode();
     } catch (err) {
-      console.error('Error:', err);
+      console.error('Initialization error:', err);
     }
   });
 
@@ -45,24 +47,33 @@
     }
   });
   async function scanQRCode() {
-    if (!scanning) return;
+    if (!scanning || !wasmInitialized) return;  // Changed from !init to !wasmInitialized
 
     try {
       const context = canvas.getContext('2d');
+      context.clearRect(0, 0, canvas.width, canvas.height); // Clear previous frame
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
       const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
       
-      // Debug log to check frame data
-      console.log('Frame data:', {
-        width: imageData.width,
-        height: imageData.height,
-        dataLength: imageData.data.length
-      });
-      await init();
       const detected = detect_qr_from_rgba(imageData.data, imageData.width, imageData.height);
-      if (detected && detected !== "") {
-        result = detected;
+      if (detected && detected.content !== "") {
+        result = detected.content;
         console.log('QR Code detected:', result);
+        
+        // Draw bounding box
+        context.strokeStyle = '#00FF00';
+        context.lineWidth = 4;
+        context.beginPath();
+        const bounds = detected.bounds;
+        
+        if (bounds && bounds.length === 4) {
+          context.moveTo(bounds[0][0], bounds[0][1]);
+          bounds.slice(1).forEach(point => {
+            context.lineTo(point[0], point[1]);
+          });
+          context.lineTo(bounds[0][0], bounds[0][1]); // Close the path
+          context.stroke();
+        }
       }
     } catch (err) {
       console.error('QR Detection error:', err);
@@ -80,13 +91,16 @@
       playsinline 
       muted
     ></video>
-    <canvas bind:this={canvas} hidden></canvas>
-    {#if result}
-      <p class="result">Detected: {result}</p>
-    {/if}
+    <canvas bind:this={canvas}></canvas> <!-- Removed hidden attribute -->
   </div>
+  {#if result}
+    <div class="result">
+      <a href="https://{result}" target="_blank" rel="noopener noreferrer">
+        <div class="code-display">{result}</div>
+      </a>
+      </div>
+  {/if}
 </div>
-
 
 <style>
   .container {
@@ -103,12 +117,22 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     position: relative;
+    width: 100%;
+    max-width: 640px;
   }
 
   video {
     width: 100%;
-    max-width: 640px;
     border-radius: 4px;
+  }
+
+  canvas {
+    position: absolute;
+    top: 1rem;  /* Match padding of scanner-wrapper */
+    left: 1rem;
+    width: calc(100% - 2rem);  /* Account for padding */
+    height: calc(100% - 2rem);
+    pointer-events: none;  /* Allow clicking through to video */
   }
 
   .result {
