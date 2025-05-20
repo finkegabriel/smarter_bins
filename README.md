@@ -1,0 +1,1 @@
+# wasm-pack --target web build --release

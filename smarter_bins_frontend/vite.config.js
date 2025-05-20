@@ -5,5 +5,9 @@ export default defineConfig({
 	plugins: [sveltekit()],
   optimizeDeps: {
     exclude: ['<problematic-package-name>'],
+  },
+  server: {
+    allowedHosts: ['frontend.finkegabriel.com'],
+    host: true // enables access from network devices
   }
 });
