@@ -18,7 +18,9 @@
     "@sveltejs/kit": "^2.21.0",
     "@zxing/browser": "^0.1.5",
     "@zxing/library": "^0.21.3",
+    "firebase": "^9.23.0",
     "svelte-routing": "^2.13.0",
+    "sveltefire": "^0.4.5",
     "wasm-app": "^1.0.0",
     "www": "0.0.0"
   }

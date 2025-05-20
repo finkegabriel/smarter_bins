@@ -91,7 +91,7 @@
       playsinline 
       muted
     ></video>
-    <canvas bind:this={canvas}></canvas> <!-- Removed hidden attribute -->
+    <canvas bind:this={canvas}></canvas>
   </div>
   {#if result}
     <div class="result">
