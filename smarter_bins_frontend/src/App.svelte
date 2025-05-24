@@ -10,17 +10,31 @@
   // import { getAuth } from 'firebase/auth';
   // import Login from "./routes/login.svelte";
   import DyanmicParts from './routes/[id]/+page.svelte';
+  import { FirebaseApp } from 'sveltefire';
+  import { initializeApp } from 'firebase/app';
+  import { getFirestore } from 'firebase/firestore';
+  import { getAuth } from 'firebase/auth';
+  import Search from "./routes/Search.svelte";
+  import Login from "./routes/login/+page.svelte";
+  const firebaseConfig = {
+  apiKey: "your-api-key",
+  authDomain: "your-auth-domain",
+  projectId: "your-project-id",
+  storageBucket: "your-storage-bucket",
+  messagingSenderId: "your-messaging-sender-id",
+  appId: "your-app-id"
+};
 
     // Initialize Firebase
-    // const app = initializeApp(/* your firebase config */);
-    // const firestore = getFirestore(app);
-    // const auth = getAuth(app);
+    const app = initializeApp(/* your firebase config */);
+    const firestore = getFirestore(app);
+    const auth = getAuth(app);
   export let url = "";
 
 </script>
 
 
-<!-- <FirebaseApp {auth} {firestore}> -->
+<FirebaseApp {auth} {firestore}>
 <Router {url}>
   <main>
     <nav>
@@ -39,7 +53,7 @@
     </div>
   </main>
 </Router>
-<!-- </FirebaseApp> -->
+</FirebaseApp>
 
 <style>
   main {
