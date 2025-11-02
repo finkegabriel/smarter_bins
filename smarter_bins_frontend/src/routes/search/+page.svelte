@@ -1,6 +1,6 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
-  import init, {detect_qr_from_rgba} from '../../pkg/api';
+  import init, {detect_qr_from_rgba} from '../../pkg/api.js';
 
   let video;
   let canvas;

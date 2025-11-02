@@ -7,3 +7,4 @@ smarter_bins_frontend/package-lock.json
 smarter_bins_frontend/.svelte-kit
 api/target/
 smarter_bins_frontend/src/lib/firebase.js
+api/Cargo.lock
