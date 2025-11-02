@@ -1,5 +1,5 @@
 <script>
-    import { page } from '$app/stores';
+    export let params = { id: '' };
     // Example data
     let headers = ['id', 'part name', 'quantity'];
     let rows = [
@@ -8,7 +8,7 @@
       [ '3', "stepper motor driver", 'x10']
     ];
   </script>
-    <h1>Bin ID: {$page.params.id}</h1>
+    <h1>Bin ID: {params.id}</h1>
   <table>
     <thead>
       <tr>
