@@ -20,6 +20,8 @@ pub fn detect_qr_from_rgba(data: &[u8], width: u32, height: u32) -> JsValue {
         })
         .collect();
 
+    let mut results: Vec<QrResult> = Vec::new();
+
     if let Some(gray_img) = GrayImage::from_raw(width, height, gray_pixels) {
         let mut prepared = PreparedImage::prepare(gray_img);
         let grids = prepared.detect_grids();
@@ -39,15 +41,12 @@ pub fn detect_qr_from_rgba(data: &[u8], width: u32, height: u32) -> JsValue {
                     bounds: corners,
                 };
                 
-                return to_value(&result).unwrap_or(JsValue::NULL);
+                results.push(result);
             }
         }
     }
 
-    to_value(&QrResult {
-        content: "".to_string(),
-        bounds: vec![],
-    }).unwrap_or(JsValue::NULL)
+    to_value(&results).unwrap_or(JsValue::NULL)
 }
 
 #[wasm_bindgen]
